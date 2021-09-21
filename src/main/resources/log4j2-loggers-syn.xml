@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<loggers>
+    <!--日志级别leve以及优先级排序:OFF > FATAL > ERROR> WARN>INFO> DEBUG >TRACE > ALL -->
+    <!--日志信息优先让子类Logger匹配-->
+    <!--Logger 父子Logger区分，举个粟子name为"a"的Logger是name为"a.b"的父Logger,而Root的name是"”所以Root是所有Logger的父Logger(LogManager.RO0T_LOGGER_NANE="")-->
+    <!--Logger name= "serverlogger"表示捕获日志信息name为serverlogger或serverlogger.xxx的信息，
+    子类Logger捕获了日志信息不会再被父Logger捕获,即使子类捕获日志信息由于level不满足不会去打印这条日志信息。-->
+    <!--注意Logger的additivity 传递性,默认true.
+    当additivity="true"时,表示当Logger捕获到日志信息并且日志信息的level大于等于当前Logger的属性level,日志信息会打印到该Logger所有的appender中包括它的所有父logger的appender(不会管父logger的级别如何〉,
+所以呢,如果Logger的additivity不设置"false"的话，很有可能会出现重复打印-->
+
+    <!-- 同步日志写法-->
+    <!--Root的name=""，是所有其他配置的Logger的父Logger-->
+    <!--如果、Root的level- "DEBU " ;而且没有设置子类捕获过滤如"org"之类的日志信息的话，会发现控制台会打印非常多的调试信息-->
+    <!--解决办法提高Root的level级别，或者设置子类Logger去捕获过滤相关不想要打印的日志信息,
+    注意level级别给低点,并且设置addtivity= "fasle",如上面的Logger org.apache.ibatis-->
+    <Root level="info">
+        <appender-ref ref = "STDOUT"/>
+<!--        <appender-ref ref="Application"/>-->
+<!--        <appender-ref ref="FILE-INFO"/>-->
+<!--        <appender-ref ref="FILE-ERROR"/>-->
+    </Root>
+
+    <Logger name = "com.zsk" additivity= "false">
+        <appender-ref ref="STDOUT"/>
+<!--        <appender-ref ref="Application"/>-->
+<!--        <appender-ref ref="FILE-INFO"/>-->
+<!--        <appender-ref ref="FILE-ERROR"/>-->
+    </Logger>
+
+    <Logger name = "com.ibatis" additivity= "false">
+        <appender-ref ref="STDOUT"/>
+<!--        <appender-ref ref="Application"/>-->
+<!--        <appender-ref ref="FILE-INFO"/>-->
+<!--        <appender-ref ref="FILE-ERROR"/>-->
+    </Logger>
+
+</loggers>
+
+

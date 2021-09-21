@@ -1,0 +1,14 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: springboot-log4j2-demo
+  profiles:
+    active: dev
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    com.zsk: info
+    com.ibatis: debug
+

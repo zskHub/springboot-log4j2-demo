@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<loggers>
+    <!--日志级别leve以及优先级排序:OFF > FATAL > ERROR> WARN>INFO> DEBUG >TRACE > ALL -->
+    <!--日志信息优先让子类Logger匹配-->
+    <!--Logger 父子Logger区分，举个粟子name为"a"的Logger是name为"a.b"的父Logger,而Root的name是"”所以Root是所有Logger的父Logger(LogManager.RO0T_LOGGER_NANE="")-->
+    <!--Logger name= "serverlogger"表示捕获日志信息name为serverlogger或serverlogger.xxx的信息，
+    子类Logger捕获了日志信息不会再被父Logger捕获,即使子类捕获日志信息由于level不满足不会去打印这条日志信息。-->
+    <!--注意Logger的additivity 传递性,默i认true
+当additivity="true"时,表示当Logger捕获到日志信息并且日志信息的level大于等于当前Logger的属性level,日志信息会打印到该Logger所有的appender中包括它的所有父logger的appender(不会管父logger的级别如何〉,所以呢,如果Logger的additivity不设置"false"的话，很有可能会出现重复打印的哦-->
+    <!-- AsyncLogger异步记录日志,，Log4j)2中的AsyncLogger的内部使用了Disruptor框架,所以需要添加依赖disruptor-3.3.4-->
+    <!--注意: includeLocation="true”可以解决AsyncLogger异步Logger输出appender中的日志、类方法和行数信息显示不出来问混但是会降低性能(it can make logging 5 - 20 times slower) ,
+所以呢注重性能这里就不显示打印日志的行数和所在方法,把这里的includeLocation="true 去掉。0AsyncLogger的additivity属性需要设置为false，这个异步需要依赖disruptor3.4,
+如果没有disruptor3.4依赖包, AsyncLogger日志会打印不出来-->
+
+    <AsyncRoot level="INFO" includeLocation="true" >
+        <appender-ref ref="CONSOLE"/>
+    </AsyncRoot>
+
+    <AsyncLogger name="com.zsk" additivity="false"  includeLocation="true" >
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-INFO"/>
+        <appender-ref ref="FILE-ERROR"/>
+    </AsyncLogger>
+
+    <AsyncLogger name="com.ibatis"  additivity="false" includeLocation="true" >
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-INFO"/>
+        <appender-ref ref="FILE-ERROR"/>
+    </AsyncLogger>
+
+</loggers>

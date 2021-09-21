@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Appenders>
+    <Appender type="Console" name="STDOUT" target="SYSTEM_OUT">
+<!--        <PatternLayout disableAnsi="false" pattern="${CONSOLE}" charset="${CHARSET}"/>-->
+        <Layout type="PatternLayout" disableAnsi="false" charset="${CHARSET}">
+            <Pattern>${CONSOLE}</Pattern>
+        </Layout>
+    </Appender>
+
+<!--    非严格模式的写法-->
+<!--    <Console name="STDOUT" target="SYSTEM_OUT">-->
+<!--        <PatternLayout disableAnsi="false" pattern="${CONSOLE}" charset="${CHARSET}"/>-->
+<!--    </Console>-->
+
+    <RollingFile name="FILE-INFO"
+                             fileName="${BASE_LOG_PATH}/${ctx:applicationName}/${ctx:applicationName}-info.log"
+                             filePattern="${BASE_LOG_PATH}/${ctx:applicationName}/${ctx:applicationName}-info.%d{yyyy-MM-dd}-%i.log.gz">
+        <LevelRangeFilter minLevel="WARN" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+
+        <PatternLayout pattern="${test}" charset="${CHARSET}" />
+        <Policies>
+            <!--每天滚动一次-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--或者日志达到10KB 滚动一次-->
+            <SizeBasedTriggeringPolicy size="10KB"/>
+        </Policies>
+        <!--日志删除策略-->
+        <DefaultRolloverStrategy fileIndex="nomax">
+            <Delete basePath="${BASE_LOG_PATH}/${ctx:applicationName}" maxDepth="2">
+                <IfFileName glob="*-info.*.log.gz"/>
+                <IfLastModified age="P1D"/>
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingFile>
+
+    <RollingFile name="FILE-ERROR"
+                             fileName="${BASE_LOG_PATH}/${ctx:applicationName}/${ctx:applicationName}-error.log"
+                             filePattern="${BASE_LOG_PATH}/${ctx:applicationName}/${ctx:applicationName}-error.%d{yyyy-MM-dd}-%i.log.gz">
+        <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+        <PatternLayout pattern="${PATTERN}" charset="${CHARSET}" />
+        <Policies>
+            <!--每天滚动一次-->
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <!--或者日志达到10KB 滚动一次-->
+            <SizeBasedTriggeringPolicy size="10KB"/>
+        </Policies>
+        <!--日志删除策略-->
+        <DefaultRolloverStrategy fileIndex="nomax">
+            <Delete basePath="${BASE_LOG_PATH}/" maxDepth="2">
+                <IfFileName glob="*-error.*.log.gz"/>
+                <IfLastModified age="P1D"/>
+            </Delete>
+        </DefaultRolloverStrategy>
+    </RollingFile>
+
+</Appenders>
