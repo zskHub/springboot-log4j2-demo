@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns:xi="http://www.w3.org/2001/XInclude"
-               status="DEBUG" name="XIncludeDemo" strict="true" packages="com.zsk.demo.log4j2lookup">
+               status="DEBUG" name="XIncludeDemo" strict="true">
     <!--常量配置-->
     <xi:include href="log4j2-property.xml"/>
     <!--appenders-->
     <xi:include href="log4j2-appenders.xml" />
     <!--loggers-->
-    <xi:include href="log4j2-loggers-syn.xml" />
+    <xi:include href="log4j2-loggers-asy.xml" />
 
 </configuration>

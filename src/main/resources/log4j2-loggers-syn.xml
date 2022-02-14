@@ -22,20 +22,34 @@
 <!--        <appender-ref ref="FILE-ERROR"/>-->
     </Root>
 
-    <Logger name = "com.zsk" additivity= "false">
+    <Logger name = "com.zsk" level="debug" additivity= "false">
         <appender-ref ref="STDOUT"/>
 <!--        <appender-ref ref="Application"/>-->
 <!--        <appender-ref ref="FILE-INFO"/>-->
 <!--        <appender-ref ref="FILE-ERROR"/>-->
     </Logger>
 
-    <Logger name = "com.ibatis" additivity= "false">
+    <Logger name = "com.ibatis" level="debug" additivity= "false">
         <appender-ref ref="STDOUT"/>
 <!--        <appender-ref ref="Application"/>-->
 <!--        <appender-ref ref="FILE-INFO"/>-->
 <!--        <appender-ref ref="FILE-ERROR"/>-->
+    </Logger>
+
+    <Logger name="jdbc.sqlonly" level="info" additivity= "false">
+        <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="jdbc.audit" level="OFF">
+        <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="jdbc.resultsettable" level="OFF">
+        <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="jdbc.resultset" level="OFF">
+        <appender-ref ref="STDOUT"/>
+    </Logger>
+    <Logger name="jdbc.connection" level="OFF">
+        <appender-ref ref="STDOUT"/>
     </Logger>
 
 </loggers>
-
-

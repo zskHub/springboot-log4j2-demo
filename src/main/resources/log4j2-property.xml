@@ -6,7 +6,7 @@
 
     <!--日志格式-->
     <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %X{TRACE_ID} [%thread] %-5level %logger[%L] - %m%n"/>
-    <Property name="CONSOLE">[%style{%d{yyyy-MM-dd HH:mm:ss:SSS}}{bright,green}] | [%style{${ctx:applicationName}:${ctx:port}}{black}] | [%style{${ctx:ip}}{green}] | [%style{%processId}{magenta}] | [%style{%X{tid}}{Magenta}] | [%highlight{%5level}] [%thread] [%highlight{%c}{bright,Green}] [%style{%L}{bright,blue}] --| %highlight{%msg}%n%style{%throwable}{red}</Property>
+    <Property name="CONSOLE">[%style{%d{yyyy-MM-dd HH:mm:ss:SSS}}{bright,green}] | [%style{${sys:applicationName}:${sys:port}}{black}] | [%style{${sys:port}}{green}] | [%style{%processId}{magenta}] | [%style{%X{tid}}{Magenta}] | [%highlight{%5level}] [%thread] [%highlight{%c}{bright,Green}] [%style{%L}{bright,blue}] --| %highlight{%msg}%n%style{%throwable}{red}</Property>
     <!--日志编码-->
     <property name="CHARSET" value="utf-8"/>
 
@@ -17,8 +17,7 @@
     <property name="MAX_HISTORY" value="P30D"/>
 
     <!--日志应用名，例如/data/logs/app/app-info.log-->
-<!--    <property name="SERVER_NAME" value="${sys:SERVICE_NAME}"/>-->
-    <property name="SERVER_NAME" value="${ctx:name}"/>
+    <Property name="SERVER_NAME" >${sys:applicationName}</Property>
 
 
 </properties>
